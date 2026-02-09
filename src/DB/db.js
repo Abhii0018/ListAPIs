@@ -3,8 +3,9 @@ const mongoose=require('mongoose')
 const connectDB=async ()=>{
     try{
         const mongoURI = process.env.MONGO_URI;
-        if(!mongoURI){
-            throw new Error('MONGO_URI is not defined in environment variables');
+        console.log("DEBUG: MONGO_URI value:", mongoURI ? "Set (length: " + mongoURI.length + ")" : "NOT SET");
+        if(!mongoURI || mongoURI.trim() === ''){
+            throw new Error('MONGO_URI is not defined or empty in environment variables');
         }
         await mongoose.connect(mongoURI);
         console.log("✅MongoDb connected");
